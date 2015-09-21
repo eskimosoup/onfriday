@@ -2,13 +2,15 @@
 <% hide_left %>
 
 <script language="Javascript">
-  
+
   function checkTermsAndConditions()
   {
     if (document.getElementById('terms_and_conditions').checked == true)
     {
       if (document.getElementById('sagepay_checkout_button') != null)
         document.getElementById('sagepay_checkout_button').disabled = false;
+      if (document.getElementById('paypal_checkout_button') != null)
+        document.getElementById('paypal_checkout_button').disabled = false;
       if (document.getElementById('credit_button') != null)
         document.getElementById('credit_button').disabled = false;
     }
@@ -16,6 +18,8 @@
     {
       if (document.getElementById('sagepay_checkout_button') != null)
         document.getElementById('sagepay_checkout_button').disabled = true;
+      if (document.getElementById('paypal_checkout_button') != null)
+        document.getElementById('paypal_checkout_button').disabled = true;
       if (document.getElementById('credit_button') != null)
         document.getElementById('credit_button').disabled = true;
     }
@@ -40,14 +44,14 @@
     <br />
     Max on this purchase: <strong><%= number_to_pounds min %></strong>
   </p>
-  
-  <% form_tag :action => "add_credit" do %>  
+
+  <% form_tag :action => "add_credit" do %>
     <p>
       <span style="float: left;"><%= label_tag :credit, "Credit (&pound;)" %> <%= text_field_tag :credit, "", {:class=>'med'} %></span> <%= submit_tag "Apply Credit", :style=>"float: left;" %>
     <br />
     </p>
   <% end %>
-  
+
   <hr />
   <h2>Your Basket</h2>
 <% end %>

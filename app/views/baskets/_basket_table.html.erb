@@ -169,24 +169,16 @@
         <% end %>
 
       <% else %>
+        <% form_tag(:action => :paypal_payment, :method => :get) do %>
+            <p align="right">
+              <%= check_box_tag :terms_and_conditions, "1", false, :class => "checkbox", :onclick => "checkTermsAndConditions();" %>
+              I accept the <%= link_to "terms and conditions", url_for(PageNode.terms_and_conditions.path), :popup => true %>
+            </p>
 
-        <% form_tag Sagepay.live_url do %>
-          <%= hidden_field_tag "VPSProtocol", Sagepay.vps_protocol %>
-          <%= hidden_field_tag "Crypt", @crypt %>
-          <%= hidden_field_tag "TxType", Sagepay.tx_type %>
-          <%= hidden_field_tag "Vendor", Sagepay.vendor %>
-
-          <p align="right">
-            <%= check_box_tag :terms_and_conditions, "1", false, :class => "checkbox", :onclick => "checkTermsAndConditions();" %>
-            I accept the <%= link_to "terms and conditions", url_for(PageNode.terms_and_conditions.path), :popup => true %>
-          </p>
-
-          <p>
-            <%= submit_tag "Pay with SagePay", :disabled => true, :id => "sagepay_checkout_button", :class => "checkout_button" %>
-          </p>
-
+            <p>
+              <%= submit_tag "Pay with Paypal", :disabled => true, :id => "paypal_checkout_button", :class => "checkout_button" %>
+            </p>
         <% end %>
-
       <% end %>
 
     <% end %>

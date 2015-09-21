@@ -268,9 +268,6 @@ class BasketsController < ApplicationController
       return
     end
 
-    # SAGEPAY URL
-    logger.info @current_basket.delivery_country
-
     if @current_basket.non_deliverable?
       @current_basket.delivery_first_names = @current_basket.billing_address_1
       @current_basket.delivery_surname = @current_basket.billing_surname
@@ -281,6 +278,8 @@ class BasketsController < ApplicationController
       @current_basket.delivery_country = @current_basket.billing_country
     end
 
+=begin
+    # SAGEPAY URL
     @crypt = Sagepay.crypt(
       @current_basket.id,
       number_to_currency(@current_basket.total, :unit => "").to_f,
@@ -309,64 +308,17 @@ class BasketsController < ApplicationController
     logger.info @current_basket.delivery_country
     logger.info "UNENCRYPTED DATA"
     logger.info Sagepay.decrypt(@crypt).to_yaml
+=end
 
+
+  end
+
+  def paypal_payment
+    session[:basket_id] = nil
     # PAYPAL URL
-    #business = 'ali.gane@tiscali.co.uk'
-    #return_url = url_for(:controller => "web", :action => "index", :only_path => false)
-    #notify_url = url_for(:controller => "baskets", :action => "paypal_reply", :only_path => false)
-
-    #values = {
-    #  :business => business,
-    #  :cmd => '_cart',
-    #  :upload => 1,
-    #  :return => return_url,
-    #  :notify_url => notify_url,
-    #  :currency_code => 'GBP',
-    #  :no_shipping => 1,
-    #  :address1 => @current_basket.billing_address_1,
-    #  :address2 => @current_basket.billing_address_2,
-    #  :city => @current_basket.billing_city,
-    #  :country => @current_basket.billing_country,
-    #  :email => @current_basket.user.email,
-    #  :first_name => @current_basket.billing_first_names,
-    #  :last_name => @current_basket.billing_surname,
-    #  :zip => @current_basket.billing_postcode,
-    #  :custom => @current_basket.id
-    #}
-
-    # calculate the total discount and apply it to the cart
-    #values = values.merge(:discount_amount_cart => @current_basket.discount_subtotal) if @current_basket.discount_subtotal > 0
-
-    #count = 0
-    #@current_basket.basket_items.each_with_index do |basket_item, index|
-    #  count = index + 1
-    #  values.merge!({
-    #    "amount_#{count}" => sprintf('%.2f', basket_item.subtotal),
-    #    "item_name_#{count}" => basket_item.product_name_product_code,
-    #    "item_number_#{count}" => basket_item.id,
-    #    "quantity_#{count}" => 1
-    #  })
-    #end
-
-    #if @current_basket.gift_wrap?
-    #  count += 1
-    #  values.merge!({
-    #    "amount_#{count}" => sprintf('%.2f', @current_basket.gift_wrap_subtotal),
-    #    "item_name_#{count}" => "Gift Wrap"
-    #  })
-    #end
-
-    #if @current_basket.delivery_subtotal > 0
-    #  count += 1
-    #  values.merge!({
-    #    "amount_#{count}" => sprintf('%.2f', @current_basket.delivery_subtotal),
-    #    "item_name_#{count}" => @current_basket.delivery_summary
-    #  })
-    #end
-
-    #@paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr?" + values.to_query # DEMO
-    #@paypal_url = "https://www.paypal.com/cgi-bin/webscr?" + values.to_query # LIVE
-
+    return_url = url_for(:controller => "web", :action => "index", :only_path => false)
+    notify_url = url_for(:controller => "baskets", :action => "paypal_reply", :only_path => false)
+    redirect_to @current_basket.paypal_url(return_url, notify_url)
   end
 
   def sagepay_success
