@@ -353,7 +353,7 @@ class BasketsController < ApplicationController
       when "NOTAUTHED"
         @message = "You failed to enter valid card details 3 times (NOTAUTHED RESULT)"
       when "MALFORMED"
-        @message = "The transaction post was poorly formatted (MALFORMED ERROR)"
+        @message = "The transaction post was poorly fpormatted (MALFORMED ERROR)"
       when "INVALID"
         @message = "Error in the data sent to Sagepay (INVALID ERROR)"
       when "ABORT"
