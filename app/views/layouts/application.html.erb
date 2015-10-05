@@ -154,10 +154,16 @@ content="pVFDCRB7FJMmKlRTd_GqbVqC_7iw2-Fcbbfpnn6lW3o" />
       <div class="footer_col_3">
         <!--<a href="<%#= SiteSetting.value("Facebook") %> " target="_blank"><%#= image_tag "footer_facebook.gif", :alt => "Become an onfriday fan on Facebook", :title => "Become an onfriday fan on Facebook", :border => "0", :hspace => "0", :vspace => "0", :style=>"margin-bottom: 7px;" %></a>-->
         <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fonfridaybags&amp;width=185&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;height=62" style="border: medium none; overflow: hidden; width: 185px; height: 62px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
-        <h2 class="tweet_title" style="margin-top: 7px;">Tweet Tweet</h2>
-        <%= render "/web/twitter" %>
-        <%= image_tag "footer_tweet_bottom.gif", :alt => " ", :border => "0", :hspace => "0", :vspace => "0", :style => "float: left; margin-bottom: 7px;" %>
-        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="alionfriday">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+        <div class="twitter-embed" style="margin-top: 5px;">
+          <a class="twitter-timeline"  href="https://twitter.com/alionfriday" data-widget-id="649976923637063682" data-height="200">Tweets by @alionfriday</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+
+        <div class="twitter-share" style="margin-top: 5px;">
+          <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="alionfriday">Tweet</a>
+          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        </div>
       </div>
 
       <div class="footer_col_4">
